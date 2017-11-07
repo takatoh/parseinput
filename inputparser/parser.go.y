@@ -93,7 +93,6 @@ type Lexer struct {
 
 func (l *Lexer) Lex(lval *yySymType) int {
 	tok := l.Scan()
-
 	lval.token = Token{ token: tok, literal : l.Text() }
 	return tok
 }
