@@ -14,10 +14,10 @@ const (
 )
 
 var TokenTable = map[string]int {
-	"*GAMMA_R": GAMMA_R,
-	"*H_MAX":   H_MAX,
-	"*PLOT":    PLOT,
-	"*END":     END,
+	"*GAMMA0.5": GAMMA_R,
+	"*HMAX":     H_MAX,
+	"*PLOT":     PLOT,
+	"*END":      END,
 }
 
 type Scanner struct {

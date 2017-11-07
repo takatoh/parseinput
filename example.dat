@@ -1,7 +1,7 @@
 // Example for input data.
-*GAMMA_R    // %
+*GAMMA0.5   // %
   0.150
-*H_MAX
+*HMAX
   0.200
 *PLOT       // %
   0.0001
