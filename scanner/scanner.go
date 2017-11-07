@@ -14,10 +14,10 @@ const (
 )
 
 var TokenTable = map[string]int {
-	"GAMMA_R": GAMMA_R,
-	"H_MAX":   H_MAX,
-	"PLOT":    PLOT,
-	"END":     END,
+	"*GAMMA_R": GAMMA_R,
+	"*H_MAX":   H_MAX,
+	"*PLOT":    PLOT,
+	"*END":     END,
 }
 
 type Scanner struct {
@@ -48,6 +48,14 @@ func (s *Scanner) nextChar() {
 		return
 	}
 	s.ch = ch
+}
+
+func (s *Scanner) isLabel() bool {
+	if s.ch == '*' {
+		return true
+	} else {
+		return false
+	}
 }
 
 func (s *Scanner) isNumber() bool {
@@ -95,6 +103,18 @@ func (s *Scanner) isEOF() bool {
 	}
 }
 
+func (s *Scanner) scanLabel() {
+	var r []rune
+	r = append(r, s.ch)
+	s.nextChar()
+	for !s.isWhiteSpace() {
+		r = append(r, s.ch)
+		s.nextChar()
+	}
+	s.kind = s.table[string(r)]
+	s.buff = string(r)
+}
+
 func (s *Scanner) scanNumber() {
 	var r []rune
 	s.kind = NUMBER
@@ -140,6 +160,7 @@ func (s *Scanner) Scan() int {
 	s.skipWhiteSpace()
 
 	switch {
+	case s.isLabel():  s.scanLabel()
 	case s.isNumber(): s.scanNumber()
 	case s.isLetter(): s.scanString()
 	case s.isEOF():    s.kind = 0
