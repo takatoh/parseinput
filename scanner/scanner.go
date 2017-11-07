@@ -74,6 +74,19 @@ func (s *Scanner) isWhiteSpace() bool {
 	}
 }
 
+func (s *Scanner) isComment() bool {
+	if s.ch == '/' {
+		s.nextChar()
+		if s.ch == '/' {
+			return true
+		} else {
+			return false
+		}
+	} else {
+		return false
+	}
+}
+
 func (s *Scanner) isEOF() bool {
 	if s.ch == 0 {
 		return true
@@ -112,8 +125,18 @@ func (s *Scanner) skipWhiteSpace() {
 	}
 }
 
+func (s *Scanner) skipComment() {
+	s.skipWhiteSpace()
+	if s.isComment() {
+		for !(s.ch == '\n') {
+			s.nextChar()
+		}
+	}
+}
+
 func (s *Scanner) Scan() int {
 	s.buff = ""
+	s.skipComment()
 	s.skipWhiteSpace()
 
 	switch {
