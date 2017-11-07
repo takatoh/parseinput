@@ -101,9 +101,8 @@ func (l *Lexer) Error(e string) {
 	panic(e)
 }
 
-func Parse(filename string) InputData {
+func Parse(infile *os.File) InputData {
 	l := new(Lexer)
-	infile, _ := os.Open(filename)
 	l.Init(infile)
 	yyParse(l)
 	return l.result

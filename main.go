@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	infile := os.Args[1]
+	infile, _ := os.Open(os.Args[1])
 	input := inputparser.Parse(infile)
 
 //	fmt.Printf("GAMMA_R = %v\n", input.Gamma_r)
