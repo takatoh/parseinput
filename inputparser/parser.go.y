@@ -2,11 +2,8 @@
 package inputparser
 
 import (
-//	"text/scanner"
 	"os"
-//	"bufio"
 	"strconv"
-	"fmt"
 
 	"../scanner"
 )
@@ -95,23 +92,9 @@ type Lexer struct {
 }
 
 func (l *Lexer) Lex(lval *yySymType) int {
-//	token := int(l.Scan())
 	tok := l.Scan()
-	fmt.Printf("token=%v, buff=%v\n", tok, l.Text())
 
-//	if token == scanner.Float {
-//		token = NUMBER
-//	} else if token == scanner.Ident {
-//		switch l.TokenText() {
-//		case "GAMMA_R": token = GAMMA_R
-//		case "H_MAX":   token = H_MAX
-//		case "PLOT":    token = PLOT
-//		case "END":     token = END
-//		}
-//	}
-//	lval.token = Token{ token: token, literal: l.TokenText() }
 	lval.token = Token{ token: tok, literal : l.Text() }
-//	return token
 	return tok
 }
 
@@ -122,8 +105,6 @@ func (l *Lexer) Error(e string) {
 func Parse(filename string) InputData {
 	l := new(Lexer)
 	infile, _ := os.Open(filename)
-//	input := bufio.NewReader(infile)
-//	l.Init(input)
 	l.Init(infile)
 	yyParse(l)
 	return l.result
