@@ -2,10 +2,12 @@
 package inputparser
 
 import (
-	"text/scanner"
+//	"text/scanner"
 	"os"
 	"bufio"
 	"strconv"
+
+	"../scanner"
 )
 
 type InputData struct {
