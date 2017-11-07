@@ -8,7 +8,11 @@ import (
 )
 
 func main() {
-	infile, _ := os.Open(os.Args[1])
+	infile, err := os.Open(os.Args[1])
+	if err != nil {
+		fmt.Println("Cannot open file:", os.Args[1])
+		os.Exit(1)
+	}
 	input := inputparser.Parse(infile)
 
 //	fmt.Printf("GAMMA_R = %v\n", input.Gamma_r)
