@@ -66,13 +66,13 @@ func (s *Scanner) isNumber() bool {
 	}
 }
 
-func (s *Scanner) isLetter() bool {
-	if ((s.ch >= 'A') && (s.ch <= 'Z')) || s.ch == '_' {
-		return true
-	} else {
-		return false
-	}
-}
+//func (s *Scanner) isLetter() bool {
+//	if ((s.ch >= 'A') && (s.ch <= 'Z')) || s.ch == '_' {
+//		return true
+//	} else {
+//		return false
+//	}
+//}
 
 func (s *Scanner) isWhiteSpace() bool {
 	if s.ch == ' ' || s.ch == '\t' || s.ch == '\r' || s.ch == '\n' {
@@ -127,17 +127,17 @@ func (s *Scanner) scanNumber() {
 	s.buff = string(r)
 }
 
-func (s *Scanner) scanString() {
-	var r []rune
-	r = append(r, s.ch)
-	s.nextChar()
-	for s.isLetter() {
-		r = append(r, s.ch)
-		s.nextChar()
-	}
-	s.kind = s.table[string(r)]
-	s.buff = string(r)
-}
+//func (s *Scanner) scanString() {
+//	var r []rune
+//	r = append(r, s.ch)
+//	s.nextChar()
+//	for s.isLetter() {
+//		r = append(r, s.ch)
+//		s.nextChar()
+//	}
+//	s.kind = s.table[string(r)]
+//	s.buff = string(r)
+//}
 
 func (s *Scanner) skipWhiteSpace() {
 	for s.isWhiteSpace() {
@@ -162,7 +162,7 @@ func (s *Scanner) Scan() int {
 	switch {
 	case s.isLabel():  s.scanLabel()
 	case s.isNumber(): s.scanNumber()
-	case s.isLetter(): s.scanString()
+//	case s.isLetter(): s.scanString()
 	case s.isEOF():    s.kind = 0
 	}
 
