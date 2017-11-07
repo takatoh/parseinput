@@ -94,19 +94,22 @@ type Lexer struct {
 }
 
 func (l *Lexer) Lex(lval *yySymType) int {
-	token := int(l.Scan())
-	if token == scanner.Float {
-		token = NUMBER
-	} else if token == scanner.Ident {
-		switch l.TokenText() {
-		case "GAMMA_R": token = GAMMA_R
-		case "H_MAX":   token = H_MAX
-		case "PLOT":    token = PLOT
-		case "END":     token = END
-		}
-	}
-	lval.token = Token{ token: token, literal: l.TokenText() }
-	return token
+//	token := int(l.Scan())
+	tok := l.Scan()
+//	if token == scanner.Float {
+//		token = NUMBER
+//	} else if token == scanner.Ident {
+//		switch l.TokenText() {
+//		case "GAMMA_R": token = GAMMA_R
+//		case "H_MAX":   token = H_MAX
+//		case "PLOT":    token = PLOT
+//		case "END":     token = END
+//		}
+//	}
+//	lval.token = Token{ token: token, literal: l.TokenText() }
+	lval.token = Token{ token: tok, literal : l.Text() }
+//	return token
+	return tok
 }
 
 func (l *Lexer) Error(e string) {
