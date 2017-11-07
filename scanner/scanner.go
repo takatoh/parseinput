@@ -3,7 +3,6 @@ package scanner
 import (
 	"io"
 	"bufio"
-	"fmt"
 )
 
 const (
@@ -44,8 +43,6 @@ func (s *Scanner) Init(fp io.Reader) {
 
 func (s *Scanner) nextChar() {
 	ch, _, err := s.r.ReadRune()
-	fmt.Printf("ch=%v\n", ch)
-	fmt.Print(err)
 	if err != nil {
 		s.ch = 0
 		return
@@ -105,27 +102,18 @@ func (s *Scanner) scanString() {
 		r = append(r, s.ch)
 		s.nextChar()
 	}
-//	switch string(r) {
-//	case "GAMMA_R": s.kind = GAMMA_R
-//	case "H_MAX":   s.kind = H_MAX
-//	case "PLOT":    s.kind = PLOT
-//	case "END":     s.kind = END
-//	}
 	s.kind = s.table[string(r)]
-//	s.nextChar()
 	s.buff = string(r)
 }
 
 func (s *Scanner) skipWhiteSpace() {
 	for s.isWhiteSpace() {
-		fmt.Println("Skipping whithspaces.")
 		s.nextChar()
 	}
 }
 
 func (s *Scanner) Scan() int {
 	s.buff = ""
-//	s.nextChar()
 	s.skipWhiteSpace()
 
 	switch {
