@@ -4,8 +4,9 @@ package inputparser
 import (
 //	"text/scanner"
 	"os"
-	"bufio"
+//	"bufio"
 	"strconv"
+	"fmt"
 
 	"../scanner"
 )
@@ -96,6 +97,8 @@ type Lexer struct {
 func (l *Lexer) Lex(lval *yySymType) int {
 //	token := int(l.Scan())
 	tok := l.Scan()
+	fmt.Printf("token=%v, buff=%v\n", tok, l.Text())
+
 //	if token == scanner.Float {
 //		token = NUMBER
 //	} else if token == scanner.Ident {
@@ -119,8 +122,9 @@ func (l *Lexer) Error(e string) {
 func Parse(filename string) InputData {
 	l := new(Lexer)
 	infile, _ := os.Open(filename)
-	input := bufio.NewReader(infile)
-	l.Init(input)
+//	input := bufio.NewReader(infile)
+//	l.Init(input)
+	l.Init(infile)
 	yyParse(l)
 	return l.result
 }
