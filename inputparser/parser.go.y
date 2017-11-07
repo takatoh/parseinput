@@ -1,5 +1,5 @@
 %{
-package main
+package inputparser
 
 import (
 	"fmt"
@@ -112,13 +112,11 @@ func (l *Lexer) Error(e string) {
 	panic(e)
 }
 
-func main() {
+func Parse(filename string) InputData {
 	l := new(Lexer)
-	infile, _ := os.Open(os.Args[1])
+	infile, _ := os.Open(filename)
 	input := bufio.NewReader(infile)
 	l.Init(input)
 	yyParse(l)
-	fmt.Printf("GAMMA_H = %v\n", l.result.Gamma_r)
-	fmt.Printf("H_MAX   = %v\n", l.result.H_max)
-	fmt.Printf("PLOT    = %v\n", l.result.Plot)
+	return l.result
 }
