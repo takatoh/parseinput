@@ -2,7 +2,7 @@
 
 build: parseinput.exe
 
-parseinput.exe: main.go scanner/scanner.go inputparser/inputparser.go
+parseinput.exe: main.go inputparser/inputparser.go
 	go build
 
 inputparser/inputparser.go: inputparser/parser.go.y scanner/scanner.go
