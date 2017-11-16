@@ -1,8 +1,6 @@
 .PHONY: clean
 
-build: parseinput.exe
-
-parseinput.exe: main.go inputparser/inputparser.go
+build: main.go inputparser/inputparser.go
 	go build
 
 inputparser/inputparser.go: inputparser/parser.go.y scanner/scanner.go
