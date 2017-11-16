@@ -1,7 +1,7 @@
 package scanner
 
 import (
-	"io"
+	"os"
 	"bufio"
 )
 
@@ -33,7 +33,7 @@ func NewScanner() *Scanner {
 	return s
 }
 
-func (s *Scanner) Init(fp io.Reader) {
+func (s *Scanner) Init(fp *os.File) {
 	s.r     = bufio.NewReader(fp)
 	s.buff  = ""
 	s.table = TokenTable
