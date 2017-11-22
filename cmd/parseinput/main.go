@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"./inputparser"
+	"github.com/takatoh/parseinput/inputparser"
 )
 
 func main() {
