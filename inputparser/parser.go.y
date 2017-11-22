@@ -5,7 +5,7 @@ import (
 	"os"
 	"strconv"
 
-	"../scanner"
+	"github.com/takatoh/parseinput/scanner"
 )
 
 type InputData struct {
