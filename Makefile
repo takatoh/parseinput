@@ -1,12 +1,12 @@
 .PHONY: clean
 
-build: main.go inputparser/inputparser.go
+build: main.go inputparser/y.go
 	go build
 
-inputparser/inputparser.go: inputparser/parser.go.y scanner/scanner.go
-	goyacc -o inputparser/inputparser.go inputparser/parser.go.y
+inputparser/y.go: inputparser/parser.go.y scanner/scanner.go
+	goyacc -o inputparser/y.go inputparser/parser.go.y
 
 clean:
-	rm *.exe
+	if exist parseinput.exe rm parseinput.exe
 	rm *.output
-	rm inputparser/inputparser.go
+	rm inputparser/y.go
