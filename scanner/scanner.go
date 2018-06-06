@@ -29,11 +29,6 @@ type Scanner struct {
 	end   bool
 }
 
-func NewScanner() *Scanner {
-	s := new(Scanner)
-	return s
-}
-
 func (s *Scanner) Init(fp *os.File) {
 	s.r     = bufio.NewReader(fp)
 	s.buff  = ""
