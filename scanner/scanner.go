@@ -26,6 +26,7 @@ type Scanner struct {
 	ch    rune
 	kind  int
 	table map[string]int
+	end   bool
 }
 
 func NewScanner() *Scanner {
@@ -37,6 +38,7 @@ func (s *Scanner) Init(fp *os.File) {
 	s.r     = bufio.NewReader(fp)
 	s.buff  = ""
 	s.table = TokenTable
+	s.end   = false
 
 	s.nextChar()
 }
@@ -113,6 +115,9 @@ func (s *Scanner) scanLabel() {
 	}
 	s.kind = s.table[string(r)]
 	s.buff = string(r)
+	if string(r) == "*END" {
+		s.end = true
+	}
 }
 
 func (s *Scanner) scanNumber() {
@@ -160,6 +165,7 @@ func (s *Scanner) Scan() int {
 	s.skipWhiteSpace()
 
 	switch {
+	case s.end:        s.kind = 0
 	case s.isLabel():  s.scanLabel()
 	case s.isNumber(): s.scanNumber()
 //	case s.isLetter(): s.scanString()
