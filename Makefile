@@ -1,4 +1,4 @@
-.PHONY: clean
+.PHONY: build clean
 
 build: main.go inputparser/parser.go
 	go build
