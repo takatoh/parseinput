@@ -6,14 +6,17 @@ import (
 )
 
 const (
-	NUMBER  = 57346
-	GAMMA_R = 57347
-	H_MAX   = 57348
-	PLOT    = 57349
-	END     = 57350
+	STRING  = 57346
+	NUMBER  = 57347
+	MODEL   = 57348
+	GAMMA_R = 57349
+	H_MAX   = 57350
+	PLOT    = 57351
+	END     = 57352
 )
 
 var TokenTable = map[string]int {
+	"*MODEL":    MODEL,
 	"*GAMMA0.5": GAMMA_R,
 	"*HMAX":     H_MAX,
 	"*PLOT":     PLOT,
@@ -63,13 +66,13 @@ func (s *Scanner) isNumber() bool {
 	}
 }
 
-//func (s *Scanner) isLetter() bool {
-//	if ((s.ch >= 'A') && (s.ch <= 'Z')) || s.ch == '_' {
-//		return true
-//	} else {
-//		return false
-//	}
-//}
+func (s *Scanner) isLetter() bool {
+	if ((s.ch >= 'A') && (s.ch <= 'Z')) {
+		return true
+	} else {
+		return false
+	}
+}
 
 func (s *Scanner) isWhiteSpace() bool {
 	if s.ch == ' ' || s.ch == '\t' || s.ch == '\r' || s.ch == '\n' {
@@ -127,17 +130,17 @@ func (s *Scanner) scanNumber() {
 	s.buff = string(r)
 }
 
-//func (s *Scanner) scanString() {
-//	var r []rune
-//	r = append(r, s.ch)
-//	s.nextChar()
-//	for s.isLetter() {
-//		r = append(r, s.ch)
-//		s.nextChar()
-//	}
-//	s.kind = s.table[string(r)]
-//	s.buff = string(r)
-//}
+func (s *Scanner) scanString() {
+	var r []rune
+	r = append(r, s.ch)
+	s.nextChar()
+	for s.isLetter() {
+		r = append(r, s.ch)
+		s.nextChar()
+	}
+	s.kind = STRING
+	s.buff = string(r)
+}
 
 func (s *Scanner) skipWhiteSpace() {
 	for s.isWhiteSpace() {
@@ -163,7 +166,7 @@ func (s *Scanner) Scan() int {
 	case s.end:        s.kind = 0
 	case s.isLabel():  s.scanLabel()
 	case s.isNumber(): s.scanNumber()
-//	case s.isLetter(): s.scanString()
+	case s.isLetter(): s.scanString()
 	case s.isEOF():    s.kind = 0
 	}
 
