@@ -9,6 +9,7 @@ import (
 )
 
 type InputData struct {
+	Model   string
 	Gamma_r float64
 	H_max   float64
 	Plot    []float64
@@ -24,17 +25,22 @@ type Token struct {
 %union {
 	input   InputData
 	token   Token
+	string  string
 	num     float64
 	numlist []float64
 }
 
 %type<input> input
+%type<string> model
 %type<num> gamma_r
 %type<num> h_max
 %type<numlist> plot
+%type<string> string
 %type<numlist> numlist
 %type<num> num
+%token<token> STRING
 %token<token> NUMBER
+%token<token> MODEL
 %token<token> GAMMA_R
 %token<token> H_MAX
 %token<token> PLOT
@@ -43,10 +49,16 @@ type Token struct {
 %%
 
 input
-	: gamma_r h_max plot END
+	: model gamma_r h_max plot END
 	{
-		$$ = InputData{ Gamma_r: $1, H_max: $2, Plot: $3 }
+		$$ = InputData{ Model: $1, Gamma_r: $2, H_max: $3, Plot: $4 }
 		yylex.(*Lexer).result = $$
+	}
+
+model
+	: MODEL string
+	{
+		$$ = $2
 	}
 
 gamma_r
@@ -65,6 +77,12 @@ plot
 	: PLOT numlist
 	{
 		$$ = $2
+	}
+
+string
+	: STRING
+	{
+		$$ = $1.literal
 	}
 
 numlist
